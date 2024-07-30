@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1 id="welcomeMessage">Welcome to the Home Page</h1>
+        <button id="logoutButton">Log Out</button>
+    </div>
+    <nav class="nav-buttons">
+        <button id="homeButton">Home</button>
+        <button id="profileButton">Profile</button>
+        <button id="coursesButton">Courses</button>
+    </nav>
+    <div id="homeView" class="view">
+        <p>This is the home view.</p>
+    </div>
+
+    <div id="profileView" class="view" style="display: none;">
+        <h2>Your Profile</h2>
+        <form id="profileForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <label for="pronouns">Preferred Pronouns:</label>
+            <input type="text" id="pronouns" name="pronouns">
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+    <div id="coursesView" class="view" style="display: none;">
+        <h2>Courses</h2>
+        <ul id="coursesList">
+            <li data-info="This course covers the basics of Astronomy.">Course 1: Astronomy 101</li>
+            <li data-info="This course covers the basics of Anthropology.">Course 2: Anthropology 101</li>
+        </ul>
+        <div id="courseInfo" style="display: none;">
+            <h3>Course Information</h3>
+            <p id="courseDescription"></p>
+        </div>
+    </div>
+
+    <script src="home.js"></script>
+</body>
+
+</html>
