@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1 id="courseTitle">Course Title</h1>
+        <button id="backButton">Back to Home Page</button>
+    </div>
+    <nav class="nav-tabs">
+        <button id="summaryTab">Summary</button>
+        <button id="filesTab">Files</button>
+        <button id="quizTab">Quiz</button>
+    </nav>
+    <div id="summaryView" class="view">
+        <h2>Course Summary</h2>
+        <p id="courseDescription"></p>
+    </div>
+    <div id="filesView" class="view" style="display: none;">
+        <h2>Course Files</h2>
+        <ul>
+            <li>File 1: Placeholder.pdf</li>
+            <li>File 2: Placeholder.mp4</li>
+        </ul>
+    </div>
+    <div id="quizView" class="view" style="display: none;">
+        <h2>Quiz</h2>
+        <form id="quizForm">
+            <div class="question">
+                <label>Question 1:</label>
+                <input type="text" name="question1">
+            </div>
+            <div class="question">
+                <label>Question 2:</label>
+                <input type="text" name="question2">
+            </div>
+            <div class="question">
+                <label>Question 3:</label>
+                <input type="text" name="question3">
+            </div>
+            <button type="submit">Submit Quiz</button>
+        </form>
+        <div id="quizResults" style="display: none;">
+            <h2>Quiz Results</h2>
+            <ul id="resultsList"></ul>
+        </div>
+    </div>
+
+    <script src="course.js"></script>
+</body>
+
+</html>
