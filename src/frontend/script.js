@@ -34,3 +34,18 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
     document.body.removeChild(loadingSpinner);
   }
 });
+
+document.getElementById("forgotButton").addEventListener("click", () => {
+  alert("Redirecting to forgot username/password page.");
+});
+
+function showError(message) {
+  let errorDiv = document.getElementById("error");
+  if (!errorDiv) {
+    errorDiv = document.createElement("div");
+    errorDiv.id = "error";
+    errorDiv.className = "error-message";
+    document.querySelector(".login-container").appendChild(errorDiv);
+  }
+  errorDiv.textContent = message;
+}

@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     quizTab.addEventListener("click", () => {
         showView("quiz");
-        //fetchQuizResults();
+        fetchQuizResults();
     });
 
     quizForm.addEventListener("submit", async (event) => {
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            const response = await fetch('/api/courses/course_123/quizzes/quiz_456/attempt', {
+            const response = await fetch('http://localhost:3001/api/courses/course_123/quizzes/quiz_456/attempt', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function fetchQuizResults() {
         try {
-            const response = await fetch('/api/courses/course_123/quizzes/quiz_456/results');
+            const response = await fetch('http://localhost:3001/api/courses/course_123/quizzes/quiz_456/results');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

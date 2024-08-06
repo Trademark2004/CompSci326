@@ -11,86 +11,45 @@ router.post('/login', async (req, res) => {
   res.status(200).json({ success: true });
 });
 
-// Fetch course data
-router.get('/courses/:courseId', async (req, res) => {
-  const { courseId } = req.params;
-  console.log(`Fetching data for course ${courseId}`);
+// Submit quiz attempt
+router.post('/courses/:courseId/quizzes/:quizId/attempt', async (req, res) => {
+  const { courseId, quizId } = req.params;
+  const { attempt } = req.body;
 
   try {
     const course = await db.get(courseId);
-    res.status(200).json(course);
-  } catch (error) {
-    console.error('Error fetching course data:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// Fetch quiz questions
-router.get('/courses/:courseId/quiz', async (req, res) => {
-  const { courseId } = req.params;
-  console.log(`Fetching quiz for course ${courseId}`);
-
-  try {
-    const course = await db.get(courseId);
-    res.status(200).json(course.quiz || []);
-  } catch (error) {
-    console.error('Error fetching quiz data:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// Add a quiz question
-router.post('/courses/:courseId/quiz', async (req, res) => {
-  const { courseId } = req.params;
-  const { question, options, answer } = req.body;
-
-  try {
-    const course = await db.get(courseId);
-    const quiz = course.quiz || [];
-    quiz.push({ id: `question_${quiz.length + 1}`, question, options, answer });
-    course.quiz = quiz;
-    await db.put(course);
-    res.status(200).json({ message: 'Quiz question added successfully' });
-  } catch (error) {
-    console.error('Error adding quiz question:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// Update a quiz question
-router.put('/courses/:courseId/quiz/:questionId', async (req, res) => {
-  const { courseId, questionId } = req.params;
-  const { question, options, answer } = req.body;
-
-  try {
-    const course = await db.get(courseId);
-    const quiz = course.quiz || [];
-    const questionIndex = quiz.findIndex(q => q.id === questionId);
-    if (questionIndex !== -1) {
-      quiz[questionIndex] = { id: questionId, question, options, answer };
+    const quiz = course.quizzes.find(q => q.id === quizId);
+    if (quiz) {
+      quiz.attempts.push({ attempt, timestamp: new Date() });
       await db.put(course);
-      res.status(200).json({ message: 'Quiz question updated successfully' });
+      res.status(200).json({ message: 'Quiz attempt submitted successfully' });
     } else {
-      res.status(404).json({ error: 'Question not found' });
+      res.status(404).json({ error: 'Quiz not found' });
     }
   } catch (error) {
-    console.error('Error updating quiz question:', error);
+    console.error('Error submitting quiz attempt:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// Delete a quiz question
-router.delete('/courses/:courseId/quiz/:questionId', async (req, res) => {
-  const { courseId, questionId } = req.params;
+// Fetch quiz results
+router.get('/courses/:courseId/quizzes/:quizId/results', async (req, res) => {
+  const { courseId, quizId } = req.params;
+  console.log(`Fetching results for quiz ${quizId} in course ${courseId}`);
 
   try {
     const course = await db.get(courseId);
-    course.quiz = course.quiz || [];
-    course.quiz = course.quiz.filter(q => q.id !== questionId);
-    await db.put(course);
-    res.status(200).json({ message: 'Quiz question deleted successfully' });
+    console.log('Course data:', course);
+    const quiz = course.quizzes.find(q => q.id === quizId);
+    if (quiz) {
+      console.log('Quiz data:', quiz);
+      res.status(200).json(quiz.attempts);
+    } else {
+      console.log('Quiz not found');
+      res.status(404).json({ error: 'Quiz not found' });
+    }
   } catch (error) {
-    console.error('Error deleting quiz question:', error);
+    console.error('Error fetching quiz results:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
