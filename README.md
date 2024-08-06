@@ -55,7 +55,7 @@ JSON
   "username": "user1",
   "password": "pass1"
 }
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Response Body:
 
 JSON
@@ -63,7 +63,7 @@ JSON
 {
   "success": true
 }
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Create Account
 Endpoint: /api/create-account
 Method: POST
@@ -77,7 +77,7 @@ JSON
   "newUsername": "newuser",
   "newPassword": "newpass"
 }
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Response Body:
 
 JSON
@@ -86,7 +86,7 @@ JSON
   "success": true,
   "message": "Account created successfully."
 }
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Submit Quiz Attempt
 Endpoint: /api/courses/:courseId/quizzes/:quizId/attempt
 Method: POST
@@ -102,8 +102,6 @@ JSON
     "question2": "answer2"
   }
 }
-AI-generated code. Review and use carefully. More info on FAQ.
-Response Body:
 
 JSON
 
@@ -111,7 +109,7 @@ JSON
   "message": "Quiz attempt submitted successfully",
   "correctAnswers": 2
 }
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Fetch Quiz Results
 Endpoint: /api/courses/:courseId/quizzes/:quizId/results
 Method: GET
@@ -131,7 +129,7 @@ JSON
     "timestamp": "2024-08-06T17:22:38.000Z"
   }
 ]
-AI-generated code. Review and use carefully. More info on FAQ.
+
 API Documentation
 Login
 Endpoint: /api/login
@@ -145,14 +143,14 @@ JSON
   "username": "user1",
   "password": "pass1"
 }
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Response Body:
 JSON
 
 {
   "success": true
 }
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Create Account
 Endpoint: /api/create-account
 HTTP Method: POST
@@ -165,7 +163,6 @@ JSON
   "newUsername": "newuser",
   "newPassword": "newpass"
 }
-AI-generated code. Review and use carefully. More info on FAQ.
 Response Body:
 JSON
 
@@ -173,7 +170,7 @@ JSON
   "success": true,
   "message": "Account created successfully."
 }
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Submit Quiz Attempt
 Endpoint: /api/courses/:courseId/quizzes/:quizId/attempt
 HTTP Method: POST
@@ -189,8 +186,7 @@ JSON
     "question1": "answer1",
     "question2": "answer2"
   }
-}
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Response Body:
 JSON
 
@@ -198,7 +194,7 @@ JSON
   "message": "Quiz attempt submitted successfully",
   "correctAnswers": 2
 }
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Fetch Quiz Results
 Endpoint: /api/courses/:courseId/quizzes/:quizId/results
 HTTP Method: GET
