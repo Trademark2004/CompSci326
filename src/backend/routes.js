@@ -7,18 +7,22 @@ const router = express.Router();
 // Login route
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
+  console.log(`Login attempt: ${username}`);
 
   try {
     const user = await db.get(username);
     if (user.password === password) {
       res.status(200).json({ success: true });
     } else {
+      console.log('Incorrect password');
       res.status(401).json({ success: false, message: 'Incorrect username or password' });
     }
   } catch (error) {
     if (error.status === 404) {
+      console.log('User not found');
       res.status(401).json({ success: false, message: 'Incorrect username or password' });
     } else {
+      console.error('Internal server error:', error);
       res.status(500).json({ success: false, message: 'Internal server error' });
     }
   }
@@ -27,6 +31,12 @@ router.post('/login', async (req, res) => {
 // Create account route
 router.post('/create-account', async (req, res) => {
   const { newUsername, newPassword } = req.body;
+  console.log(`Create account attempt: ${newUsername}`);
+
+  if (!newUsername || !newPassword) {
+    console.log('Missing username or password');
+    return res.status(400).json({ success: false, message: 'Missing username or password' });
+  }
 
   try {
     const user = await db.get(newUsername);
@@ -36,6 +46,7 @@ router.post('/create-account', async (req, res) => {
       await db.put({ _id: newUsername, password: newPassword });
       return res.status(201).json({ success: true, message: 'Account created successfully.' });
     }
+    console.error('Internal server error:', error);
     return res.status(500).json({ success: false, message: 'An error occurred. Please try again.' });
   }
 });

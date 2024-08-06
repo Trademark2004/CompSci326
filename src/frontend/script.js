@@ -25,7 +25,7 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
       window.location.href = "/home.html";
     } else {
       // Display error message
-      showError("The username and password are incorrect (use \"user1\" and \"pass1\" to access the site or click \"forgot username/password\ to create login info)" );
+      showError("The username and password are incorrect (use \"user1\" and \"pass1\" to access the site)");
     }
   } catch (error) {
     showError("An error occurred. Please try again.");
@@ -36,8 +36,7 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
 });
 
 document.getElementById("forgotButton").addEventListener("click", () => {
-  document.querySelector(".login-container").style.display = "none";
-  document.querySelector(".create-account-container").style.display = "block";
+  alert("Rerouting to the forgot username/password page.");
 });
 
 document.getElementById("createAccountForm").addEventListener("submit", async (event) => {

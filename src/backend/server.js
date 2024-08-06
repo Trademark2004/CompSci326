@@ -31,6 +31,22 @@ app.listen(PORT, () => {
     verifyAndCreateCourse();
 });
 
+
+async function addUser() {
+  try {
+    const user = {
+      _id: 'user1',
+      password: 'pass1'
+    };
+    await db.put(user);
+    console.log('User added successfully');
+  } catch (error) {
+    console.error('Error adding user:', error);
+  }
+}
+
+addUser();
+
 async function verifyAndCreateCourse() {
     const courseId = 'course_123';
     try {
