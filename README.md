@@ -8,12 +8,20 @@ To get started with the project, follow these steps:
    git clone https://github.com/yourusername/your-repo.git
    cd your-repo
 
-Install dependencies:
-npm install
+2. **Install dependencies:**
+```bash
+    npm install
+```
 
-Start the server:
-npm start
+3. **Start the server:**
+    ```bash
+    npm run start-backend
+```
 
+4. **Start the frontend:**
+    ```bash
+    npm run start-frontend
+```
 Project Structure
 src/
 ├── frontend/
