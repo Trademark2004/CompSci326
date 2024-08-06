@@ -7,8 +7,37 @@ const router = express.Router();
 // Login route
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  // Implement your login logic here
-  res.status(200).json({ success: true });
+
+  try {
+    const user = await db.get(username);
+    if (user.password === password) {
+      res.status(200).json({ success: true });
+    } else {
+      res.status(401).json({ success: false, message: 'Incorrect username or password' });
+    }
+  } catch (error) {
+    if (error.status === 404) {
+      res.status(401).json({ success: false, message: 'Incorrect username or password' });
+    } else {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+  }
+});
+
+// Create account route
+router.post('/create-account', async (req, res) => {
+  const { newUsername, newPassword } = req.body;
+
+  try {
+    const user = await db.get(newUsername);
+    return res.status(400).json({ success: false, message: 'Username already exists.' });
+  } catch (error) {
+    if (error.status === 404) {
+      await db.put({ _id: newUsername, password: newPassword });
+      return res.status(201).json({ success: true, message: 'Account created successfully.' });
+    }
+    return res.status(500).json({ success: false, message: 'An error occurred. Please try again.' });
+  }
 });
 
 // Submit quiz attempt
@@ -20,9 +49,16 @@ router.post('/courses/:courseId/quizzes/:quizId/attempt', async (req, res) => {
     const course = await db.get(courseId);
     const quiz = course.quizzes.find(q => q.id === quizId);
     if (quiz) {
-      quiz.attempts.push({ attempt, timestamp: new Date() });
+      let correctAnswers = 0;
+      quiz.questions.forEach((question, index) => {
+        if (question.answer === attempt[`question${index + 1}`]) {
+          correctAnswers++;
+        }
+      });
+
+      quiz.attempts.push({ attempt, correctAnswers, timestamp: new Date() });
       await db.put(course);
-      res.status(200).json({ message: 'Quiz attempt submitted successfully' });
+      res.status(200).json({ message: 'Quiz attempt submitted successfully', correctAnswers });
     } else {
       res.status(404).json({ error: 'Quiz not found' });
     }

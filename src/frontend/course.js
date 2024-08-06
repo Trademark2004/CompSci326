@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const filesView = document.getElementById("filesView");
     const quizView = document.getElementById("quizView");
     const quizForm = document.getElementById("quizForm");
-    const quizResults = document.getElementById("quizResults");
-    const resultsList = document.getElementById("resultsList");
 
     const courseInfo = localStorage.getItem("courseInfo");
     courseTitle.textContent = "Course Details";
@@ -30,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     quizTab.addEventListener("click", () => {
         showView("quiz");
-        fetchQuizResults();
     });
 
     quizForm.addEventListener("submit", async (event) => {
@@ -54,37 +51,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw new Error('Network response was not ok');
             }
             const result = await response.json();
-            alert("Quiz submitted successfully!");
-            fetchQuizResults();
+            alert(`Quiz submitted successfully! You got ${result.correctAnswers} out of 3 questions right.`);
         } catch (error) {                                      
             console.error('Error:', error);
             alert("Failed to submit quiz.");
         }
     });
-
-    async function fetchQuizResults() {
-        try {
-            const response = await fetch('http://localhost:3001/api/courses/course_123/quizzes/quiz_456/results');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const results = await response.json();
-            displayQuizResults(results);
-        } catch (error) {
-            console.error('Error:', error);
-            alert("Failed to fetch quiz results.");
-        }
-    }
-
-    function displayQuizResults(results) {
-        resultsList.innerHTML = '';
-        results.forEach((result, index) => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `Attempt ${index + 1}: ${JSON.stringify(result)}`;
-            resultsList.appendChild(listItem);
-        });
-        quizResults.style.display = 'block';
-    }
 
     function showView(view) {
         summaryView.style.display = "none";

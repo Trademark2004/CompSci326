@@ -1,5 +1,5 @@
-2024/08/06-16:13:31.289 99f8 Recovering log #45
-2024/08/06-16:13:31.289 99f8 Level-0 table #47: started
-2024/08/06-16:13:31.298 99f8 Level-0 table #47: 237 bytes OK
-2024/08/06-16:13:31.303 99f8 Delete type=0 #45
-2024/08/06-16:13:31.304 99f8 Delete type=3 #43
+2024/08/06-17:47:35.992 2db0 Recovering log #71
+2024/08/06-17:47:35.992 2db0 Level-0 table #73: started
+2024/08/06-17:47:36.006 2db0 Level-0 table #73: 1524 bytes OK
+2024/08/06-17:47:36.017 2db0 Delete type=0 #71
+2024/08/06-17:47:36.017 2db0 Delete type=3 #69

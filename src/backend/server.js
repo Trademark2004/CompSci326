@@ -12,6 +12,20 @@ app.use(bodyParser.json());
 app.use(cors()); // Enable CORS
 app.use('/api', routes);
 
+app.post('/api/create-account', async (req, res) => {
+  const { newUsername, newPassword } = req.body;
+  try {
+    const user = await db.get(newUsername);
+    return res.status(400).json({ success: false, message: 'Username already exists.' });
+  } catch (error) {
+    if (error.status === 404) {
+      await db.put({ _id: newUsername, password: newPassword });
+      return res.status(201).json({ success: true, message: 'Account created successfully.' });
+    }
+    return res.status(500).json({ success: false, message: 'An error occurred. Please try again.' });
+  }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     verifyAndCreateCourse();
