@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     quizTab.addEventListener("click", () => {
         showView("quiz");
-        fetchQuizResults();
+        //fetchQuizResults();
     });
 
     quizForm.addEventListener("submit", async (event) => {
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
             alert("Quiz submitted successfully!");
             fetchQuizResults();
-        } catch (error) {
+        } catch (error) {                                      
             console.error('Error:', error);
             alert("Failed to submit quiz.");
         }

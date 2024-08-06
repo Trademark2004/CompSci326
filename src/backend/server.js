@@ -1,11 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const routes = require('./routes');
-const db = require('./db');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import routes from './routes.js';
+import db from './db.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 app.use(cors()); // Enable CORS
@@ -18,8 +18,18 @@ app.listen(PORT, () => {
 
 async function addSampleData() {
     try {
+        const courseId = 'course_123';
+        const existingCourse = await db.get(courseId).catch(err => {
+            if (err.status === 404) {
+                return null;
+            } else {
+                throw err;
+            }
+        });
+
         const course = {
-            _id: 'course_123',
+            _id: courseId,
+            _rev: existingCourse ? existingCourse._rev : undefined,
             title: 'Astronomy 101',
             description: 'This course covers the basics of Astronomy.',
             students: [],

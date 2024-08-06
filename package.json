@@ -22,11 +22,18 @@
     "email": "tdmurray@umass.edu"
   },
   "contributors": [],
-"scripts": {
-"start": "http-server src/frontend -p 3000 -c-1 -o -s"
-},
-
+  "scripts": {
+    "start": "npm run start-frontend & npm run start-backend & wait",
+    "start-frontend": "http-server src/frontend -p 3000 -c-1 -o -s",
+    "start-backend": "node src/backend/server.js"
+  },
   "devDependencies": {
     "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "pouchdb": "^9.0.0"
   }
 }
