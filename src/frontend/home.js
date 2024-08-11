@@ -39,7 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".course-box").forEach((course) => {
         course.addEventListener("click", () => {
             const info = course.getAttribute("data-info");
+            const courseId = course.getAttribute("data-id");
             localStorage.setItem("courseInfo", info);
+            localStorage.setItem("courseId", courseId);
             window.location.href = "course.html";
         });
     });

@@ -39,33 +39,6 @@ document.getElementById("forgotButton").addEventListener("click", () => {
   alert("Rerouting to the forgot username/password page.");
 });
 
-document.getElementById("createAccountForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const newUsername = document.getElementById("newUsername").value;
-  const newPassword = document.getElementById("newPassword").value;
-
-  try {
-    const response = await fetch("http://localhost:3001/api/create-account", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ newUsername, newPassword }),
-    });
-
-    const result = await response.json();
-    if (result.success) {
-      alert("Account created successfully! Please log in with your new credentials.");
-      document.querySelector(".create-account-container").style.display = "none";
-      document.querySelector(".login-container").style.display = "block";
-    } else {
-      showError(result.message);
-    }
-  } catch (error) {
-    showError("An error occurred. Please try again.");
-  }
-});
-
 function showError(message) {
   let errorDiv = document.getElementById("error");
   if (!errorDiv) {
