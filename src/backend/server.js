@@ -26,16 +26,26 @@ app.post('/api/create-account', async (req, res) => {
   }
 });
 
+app.post('/api/reset-credentials', async (req, res) => {
+  const { newUsername, newPassword } = req.body;
+  try {
+    await addUser(newUsername, newPassword);
+    return res.status(200).json({ success: true, message: 'Credentials reset successfully.' });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'An error occurred. Please try again.' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   verifyAndCreateCourses();
 });
 
-async function addUser() {
+async function addUser(username, password) {
   try {
     const user = {
-      _id: 'user1',
-      password: 'pass1'
+      _id: username,
+      password: password
     };
     await db.put(user);
     console.log('User added successfully');
@@ -44,7 +54,7 @@ async function addUser() {
   }
 }
 
-addUser();
+addUser('user1', 'pass1');
 
 async function verifyAndCreateCourses() {
   const courses = [

@@ -36,7 +36,35 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
 });
 
 document.getElementById("forgotButton").addEventListener("click", () => {
-  alert("Rerouting to the forgot username/password page.");
+  document.querySelector(".login-container").style.display = "none";
+  document.querySelector(".reset-credentials-container").style.display = "block";
+});
+
+document.getElementById("resetForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const newUsername = document.getElementById("newUsername").value;
+  const newPassword = document.getElementById("newPassword").value;
+
+  try {
+    const response = await fetch("http://localhost:3001/api/reset-credentials", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newUsername, newPassword }),
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      alert("Credentials reset successfully. You can now log in with your new username and password.");
+      document.querySelector(".reset-credentials-container").style.display = "none";
+      document.querySelector(".login-container").style.display = "block";
+    } else {
+      showError("An error occurred. Please try again.");
+    }
+  } catch (error) {
+    showError("An error occurred. Please try again.");
+  }
 });
 
 function showError(message) {

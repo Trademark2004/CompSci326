@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const courseTitle = document.getElementById("courseTitle");
     const courseDescription = document.getElementById("courseDescription");
+    const courseImage = document.getElementById("courseImage");
     const backButton = document.getElementById("backButton");
     const summaryTab = document.getElementById("summaryTab");
     const filesTab = document.getElementById("filesTab");
@@ -18,9 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
     courseDescription.textContent = courseInfo;
 
     if (courseId === "anthropology_101") {
+        courseImage.src = "https://h-o-m-e.org/wp-content/uploads/2022/12/anthropology_1672308158-1024x576.webp";
         filesList.innerHTML = `
-            <li>File 1: <a href="https://open.umn.edu/opentextbooks/textbooks/1150" target="_blank">Introduction to Anthropology.pdf</a></li>
-            <li>File 2: <a href="https://www.youtube.com/watch?v=2T9naLwRtQ4" target="_blank">Anthropology Lecture.mp4</a></li>
+            <li>File 1: <a href="https://open.umn.edu/opentextbooks/textbooks/1150" target="_blank">Anthropology textbook</a></li>
+            <li>File 2: <a href="https://www.youtube.com/watch?v=2T9naLwRtQ4" target="_blank">Anthropology Introduction video</a></li>
         `;
         quizForm.innerHTML = `
             <div class="question">
@@ -47,9 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
             <button type="submit">Submit Quiz</button>
         `;
     } else if (courseId === "astronomy_101") {
+        courseImage.src = "https://www.worldatlas.com/r/w1200/upload/b2/b6/94/shutterstock-300203846.jpg";
         filesList.innerHTML = `
-            <li>File 1: <a href="https://ai.stanford.edu/~nilsson/MLBOOK.pdf" target="_blank">Introduction to Astronomy.pdf</a></li>
-            <li>File 2: <a href="https://www.youtube.com/watch?v=Hk34Xrm3ssU" target="_blank">Educational Video.mp4</a></li>
+            <li>File 1: <a href="https://ai.stanford.edu/~nilsson/MLBOOK.pdf" target="_blank">Introduction to Astronomy Syllabus</a></li>
+            <li>File 2: <a href="https://www.youtube.com/watch?v=Hk34Xrm3ssU" target="_blank">Astronomy Introduction Video</a></li>
         `;
         quizForm.innerHTML = `
             <div class="question">

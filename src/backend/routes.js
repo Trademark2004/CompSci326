@@ -51,6 +51,20 @@ router.post('/create-account', async (req, res) => {
   }
 });
 
+// Reset credentials route
+router.post('/reset-credentials', async (req, res) => {
+  const { newUsername, newPassword } = req.body;
+  console.log(`Reset credentials attempt: ${newUsername}`);
+
+  try {
+    await addUser(newUsername, newPassword);
+    res.status(200).json({ success: true, message: 'Credentials reset successfully.' });
+  } catch (error) {
+    console.error('Internal server error:', error);
+    res.status(500).json({ success: false, message: 'An error occurred. Please try again.' });
+  }
+});
+
 // Submit quiz attempt
 router.post('/courses/:courseId/quizzes/:quizId/attempt', async (req, res) => {
   const { courseId, quizId } = req.params;
@@ -102,3 +116,16 @@ router.get('/courses/:courseId/quizzes/:quizId/results', async (req, res) => {
 });
 
 export default router;
+
+async function addUser(username, password) {
+  try {
+    const user = {
+      _id: username,
+      password: password
+    };
+    await db.put(user);
+    console.log('User added successfully');
+  } catch (error) {
+    console.error('Error adding user:', error);
+  }
+}
